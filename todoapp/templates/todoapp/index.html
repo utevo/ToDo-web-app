@@ -1,0 +1,11 @@
+
+<h1> ToDo: </h1>
+<ul>
+    {% for task in task_list %}
+        <li>
+            <a href="{% url 'todoapp:task_detail' task.id %}">
+                {{ task.title }}
+           </a>
+        </li>
+    {% endfor %}     
+</ul>
