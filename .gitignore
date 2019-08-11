@@ -1,0 +1,4 @@
+*.sqlite3
+todo/__pycache__/
+todoapp/__pycache__/
+todoapp/migrations/__pycache__/
