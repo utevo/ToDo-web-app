@@ -1,0 +1,16 @@
+<h1> Task: </h1>
+
+<a> Name: {{ task.title }} </a> <br>
+<a> Description: {{ task.description }} </a> <br>
+<a> Completed: {{ task.completed }} </a> <br>
+
+<a> Hashtags:</a> <br>
+<ul>
+    {% for hashtag in task.hashtags.all %}
+    <li>
+        <a href="{% url 'todoapp:hashtag_detail' hashtag.id %}">
+            {{ hashtag }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>

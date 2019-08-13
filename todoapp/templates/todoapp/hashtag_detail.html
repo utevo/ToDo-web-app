@@ -1,0 +1,14 @@
+<h1> Hashtag: </h1>
+
+<a> Name: {{ hashtag.title }} </a> <br>
+
+<a> Used in tasks:</a> <br>
+<ul>
+    {% for task in tasks_in_which_used %}
+    <li>
+        <a href="{% url 'todoapp:task_detail' task.id %}">
+            {{ task }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
