@@ -17,10 +17,15 @@ class Task(models.Model):
     description = models.TextField(null=False, blank=True)
     completed = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now)
-    priority = models.PositiveIntegerField(blank=True, null=True)
+
+    # The lower value of invalidity means the task is more important  
+    invalidity = models.PositiveIntegerField(blank=True, null=True)
 
     def __str__(self):
         return self.title
+    
+    def __lt__(self, other):
+        return self.invalidity > other.invalidity
 
     class Meta:
         ordering = ["completed", "-created_at"]
