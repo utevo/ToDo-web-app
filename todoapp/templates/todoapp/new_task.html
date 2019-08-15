@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <p> Add new task: </p>
+    <form action="{% url 'todoapp:new_task' %}" method='post'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="submit"> Add new topic </button>
+    </form>
+{% endblock content %}
