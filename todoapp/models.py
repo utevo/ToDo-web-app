@@ -25,6 +25,10 @@ class Task(models.Model):
         return self.title
     
     def __lt__(self, other):
+        if self.invalidity == None:
+            return True
+        if other.invalidity == None:
+            return False
         return self.invalidity > other.invalidity
 
     class Meta:
