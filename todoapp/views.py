@@ -3,6 +3,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 
 from .models import Task, Hashtag
+from .forms import TaskForm
 
 # Create your views here.
 
@@ -21,6 +22,12 @@ def task_detail(request, task_id):
         raise Http404("Task does not exists :(")
     return render(request, 'todoapp/task_detail.html', {'task': task})
 
+
+def new_task(request):
+    if request.method != 'POST':
+        form = TaskForm()
+        content = {'form': form}
+        return render(request, 'todoapp/new_task.html', content)
 
 def hashtag_detail(request, hashtag_id):
     hashtag = get_object_or_404(Hashtag, id=hashtag_id)
