@@ -10,7 +10,7 @@ urlpatterns = [
     # ex: /todo/tasks/
     path('tasks/', views.tasks, name='tasks'),
     # ex: /todo/task/3/
-    path('task/<int:task_id>/', views.task_detail, name='task_detail'),
+    path('task/<int:task_id>/', views.detail_task, name='detail_task'),
     # ex: /todo/hashtag/1/
     path('hashtag/<int:hashtag_id>/', views.hashtag_detail,
          name='hashtag_detail'),

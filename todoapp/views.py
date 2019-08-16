@@ -18,12 +18,12 @@ def tasks(request):
     return render(request, 'todoapp/tasks.html', context)
 
 
-def task_detail(request, task_id):
+def detail_task(request, task_id):
     try:
         task = Task.objects.get(id=task_id)
     except Task.DoesNotExist:
         raise Http404("Task does not exists :(")
-    return render(request, 'todoapp/task_detail.html', {'task': task})
+    return render(request, 'todoapp/detail_task.html', {'task': task})
 
 
 def hashtag_detail(request, hashtag_id):

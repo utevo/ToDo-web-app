@@ -10,7 +10,7 @@
     <ul>
         {% for task in tasks_in_which_used %}
         <li>
-            <a href="{% url 'todoapp:task_detail' task.id %}">
+            <a href="{% url 'todoapp:detail_task' task.id %}">
                 {{ task }}
             </a>
         </li>
