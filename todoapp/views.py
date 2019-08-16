@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 from .models import Task, Hashtag
 from .forms import TaskForm, HashtagForm
 
+
 def index(request):
     return HttpResponseRedirect(reverse('todoapp:tasks'))
 
@@ -23,6 +24,14 @@ def task_detail(request, task_id):
     except Task.DoesNotExist:
         raise Http404("Task does not exists :(")
     return render(request, 'todoapp/task_detail.html', {'task': task})
+
+
+def hashtag_detail(request, hashtag_id):
+    hashtag = get_object_or_404(Hashtag, id=hashtag_id)
+    tasks_in_which_used = hashtag.task_set.all()
+    context = {'hashtag': hashtag, 'tasks_in_which_used': tasks_in_which_used}
+    return render(request, 'todoapp/hashtag_detail.html',
+                  context)
 
 
 def new_task(request):
@@ -48,10 +57,5 @@ def new_hashtag(request):
             new_task = form.save(commit=True)
             return HttpResponseRedirect(reverse('todoapp:tasks'))
 
-
-def hashtag_detail(request, hashtag_id):
-    hashtag = get_object_or_404(Hashtag, id=hashtag_id)
-    tasks_in_which_used = hashtag.task_set.all()
-    context = {'hashtag': hashtag, 'tasks_in_which_used': tasks_in_which_used}
-    return render(request, 'todoapp/hashtag_detail.html',
-                  context)
+def edit_task(request, task_id):
+    pass
