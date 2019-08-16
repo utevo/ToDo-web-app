@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
+from django.urls import reverse
 from django.shortcuts import get_object_or_404
 
 from .models import Task, Hashtag
@@ -28,6 +29,13 @@ def new_task(request):
         form = TaskForm()
         content = {'form': form}
         return render(request, 'todoapp/new_task.html', content)
+    else:
+        form = TaskForm(data=request.POST)
+        if form.is_valid():
+            new_task = form.save(commit=False)
+            new_task.save()
+            return HttpResponseRedirect(reverse('todoapp:index'))
+
 
 def hashtag_detail(request, hashtag_id):
     hashtag = get_object_or_404(Hashtag, id=hashtag_id)
