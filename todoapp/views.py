@@ -6,12 +6,15 @@ from django.shortcuts import get_object_or_404
 from .models import Task, Hashtag
 from .forms import TaskForm, HashtagForm
 
-
 def index(request):
+    return HttpResponseRedirect(reverse('todoapp:tasks'))
+
+
+def tasks(request):
     unordered_task_list = Task.objects.all()
     ordered_task_list = sorted(unordered_task_list, reverse=True)
     context = {'task_list': ordered_task_list}
-    return render(request, 'todoapp/index.html', context)
+    return render(request, 'todoapp/tasks.html', context)
 
 
 def task_detail(request, task_id):
