@@ -20,4 +20,6 @@
         {% endfor %}
     </ul>
 
+    <p><a href="{% url 'todoapp:edit_task' task.id %}">Edit task</a></p>
+
 {% endblock content %}
