@@ -4,9 +4,7 @@ from django.urls import reverse
 from django.shortcuts import get_object_or_404
 
 from .models import Task, Hashtag
-from .forms import TaskForm
-
-# Create your views here.
+from .forms import TaskForm, HashtagForm
 
 
 def index(request):
@@ -31,6 +29,19 @@ def new_task(request):
         return render(request, 'todoapp/new_task.html', content)
     else:
         form = TaskForm(data=request.POST)
+        if form.is_valid():
+            new_task = form.save(commit=False)
+            new_task.save()
+            return HttpResponseRedirect(reverse('todoapp:index'))
+
+
+def new_hashtag(request):
+    if request.method != 'POST':
+        form = HashtagForm()
+        content = {'form': form}
+        return render(request, 'todoapp/new_hashtag.html', content)
+    else:
+        form = HashtagForm(data=request.POST)
         if form.is_valid():
             new_task = form.save(commit=False)
             new_task.save()
