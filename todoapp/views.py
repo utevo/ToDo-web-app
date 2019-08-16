@@ -34,7 +34,7 @@ def new_task(request):
         form = TaskForm(data=request.POST)
         if form.is_valid():
             new_task = form.save(commit=True)
-            return HttpResponseRedirect(reverse('todoapp:index'))
+            return HttpResponseRedirect(reverse('todoapp:tasks'))
 
 
 def new_hashtag(request):
@@ -46,7 +46,7 @@ def new_hashtag(request):
         form = HashtagForm(data=request.POST)
         if form.is_valid():
             new_task = form.save(commit=True)
-            return HttpResponseRedirect(reverse('todoapp:index'))
+            return HttpResponseRedirect(reverse('todoapp:tasks'))
 
 
 def hashtag_detail(request, hashtag_id):

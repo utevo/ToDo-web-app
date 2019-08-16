@@ -7,6 +7,7 @@ app_name = 'todoapp'
 urlpatterns = [
     # ex: /todo/
     path('', views.index, name='index'),
+    # ex: /todo/tasks/
     path('tasks/', views.tasks, name='tasks'),
     # ex: /todo/task/3/
     path('task/<int:task_id>/', views.task_detail, name='task_detail'),
