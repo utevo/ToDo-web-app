@@ -1,16 +1,23 @@
-<h1> Task: </h1>
+{% extends "base.html" %}
 
-<a> Name: {{ task.title }} </a> <br>
-<a> Description: {{ task.description }} </a> <br>
-<a> Completed: {{ task.completed }} </a> <br>
+{% block content %}
 
-<a> Hashtags:</a> <br>
-<ul>
-    {% for hashtag in task.hashtags.all %}
-    <li>
-        <a href="{% url 'todoapp:hashtag_detail' hashtag.id %}">
-            {{ hashtag }}
-        </a>
-    </li>
-    {% endfor %}
-</ul>
+    <h1> Task: </h1>
+    <p> Name: {{ task.title }} </p>
+    <p> Description: {{ task.description }} </p>
+    <p> Completed: {{ task.completed }} </p>
+
+    <p> Hashtags: </p>
+    <ul>
+        {% for hashtag in task.hashtags.all %}
+        <li>
+            <a href="{% url 'todoapp:hashtag_detail' hashtag.id %}">
+                {{ hashtag }}
+            </a>
+        </li>
+        {% empty %}
+            Doesn't contain any hashtag!
+        {% endfor %}
+    </ul>
+
+{% endblock content %}

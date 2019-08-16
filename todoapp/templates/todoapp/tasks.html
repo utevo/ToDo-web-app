@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1> TASKS: </h1>
+    <ul>
+        {% for task in task_list %}
+            <li>
+                <a href="{% url 'todoapp:task_detail' task.id %}">
+                    {{ task }}
+            </a>
+            </li>
+        {% empty %}
+            Doesn't exist any task.
+        {% endfor %}     
+    </ul>
+
+{% endblock content %}

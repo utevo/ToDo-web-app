@@ -1,17 +1,20 @@
 from django.shortcuts import render
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
+from django.urls import reverse
 from django.shortcuts import get_object_or_404
 
 from .models import Task, Hashtag
-
-# Create your views here.
-
+from .forms import TaskForm, HashtagForm
 
 def index(request):
+    return HttpResponseRedirect(reverse('todoapp:tasks'))
+
+
+def tasks(request):
     unordered_task_list = Task.objects.all()
     ordered_task_list = sorted(unordered_task_list, reverse=True)
     context = {'task_list': ordered_task_list}
-    return render(request, 'todoapp/index.html', context)
+    return render(request, 'todoapp/tasks.html', context)
 
 
 def task_detail(request, task_id):
@@ -20,6 +23,30 @@ def task_detail(request, task_id):
     except Task.DoesNotExist:
         raise Http404("Task does not exists :(")
     return render(request, 'todoapp/task_detail.html', {'task': task})
+
+
+def new_task(request):
+    if request.method != 'POST':
+        form = TaskForm()
+        content = {'form': form}
+        return render(request, 'todoapp/new_task.html', content)
+    else:
+        form = TaskForm(data=request.POST)
+        if form.is_valid():
+            new_task = form.save(commit=True)
+            return HttpResponseRedirect(reverse('todoapp:tasks'))
+
+
+def new_hashtag(request):
+    if request.method != 'POST':
+        form = HashtagForm()
+        content = {'form': form}
+        return render(request, 'todoapp/new_hashtag.html', content)
+    else:
+        form = HashtagForm(data=request.POST)
+        if form.is_valid():
+            new_task = form.save(commit=True)
+            return HttpResponseRedirect(reverse('todoapp:tasks'))
 
 
 def hashtag_detail(request, hashtag_id):
