@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h2>Edit task:</h2>
+    <p><a href="{% url 'todoapp:task_detail' task.id %}">{{ task }}</a></p>
+
+    <form action="{% url 'todoapp:edit_task' task.id%}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="submit">Save changes</button>
+    </form>
+
+{% endblock content %}

@@ -58,4 +58,15 @@ def new_hashtag(request):
             return HttpResponseRedirect(reverse('todoapp:tasks'))
 
 def edit_task(request, task_id):
-    pass
+    task = get_object_or_404(Task, id=task_id)
+
+    if request.method != 'POST':
+        form = TaskForm(instance=task)
+        content = {'task': task, 'form': form}
+        return render(request, 'todoapp/edit_task.html', content)
+    else:
+        form = TaskForm(instance=task, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('todoapp:task_detail',
+                                        args=[task_id]))

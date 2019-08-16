@@ -18,9 +18,7 @@ urlpatterns = [
     path('new_task/', views.new_task, name='new_task'),
     #ex /todo/new_hashtag/
     path('new_hashtag/', views.new_hashtag, name='new_hashtag'),
-    #ex /todo/tasks/3/edit
-    path('task/<int:task_id>/edit', views.edit_task, name='edit_task'),
-    
-
+    #ex /todo/tasks/3/edit/
+    path('task/<int:task_id>/edit/', views.edit_task, name='edit_task'),
 
 ]
