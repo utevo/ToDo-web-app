@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <p> Add new hashtag: </p>
+    <form action="{% url 'todoapp:new_hashtag' %}" method='post'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="submit"> Add new hashtag </button>
+    </form>
+{% endblock content %}
