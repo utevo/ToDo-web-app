@@ -26,11 +26,11 @@ def detail_task(request, task_id):
     return render(request, 'todoapp/detail_task.html', {'task': task})
 
 
-def hashtag_detail(request, hashtag_id):
+def detail_hashtag(request, hashtag_id):
     hashtag = get_object_or_404(Hashtag, id=hashtag_id)
     tasks_in_which_used = hashtag.task_set.all()
     context = {'hashtag': hashtag, 'tasks_in_which_used': tasks_in_which_used}
-    return render(request, 'todoapp/hashtag_detail.html',
+    return render(request, 'todoapp/detail_hashtag.html',
                   context)
 
 
@@ -56,6 +56,7 @@ def new_hashtag(request):
         if form.is_valid():
             new_task = form.save(commit=True)
             return HttpResponseRedirect(reverse('todoapp:tasks'))
+
 
 def edit_task(request, task_id):
     task = get_object_or_404(Task, id=task_id)

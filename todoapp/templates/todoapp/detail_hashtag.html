@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1> Hashtag: </h1>
+
+    <p> Name: {{ hashtag.title }} </p>
+
+    <p> Used in tasks:</p>
+    <ul>
+        {% for task in tasks_in_which_used %}
+        <li>
+            <a href="{% url 'todoapp:detail_task' task.id %}">
+                {{ task }}
+            </a>
+        </li>
+        {% empty %}
+            This hashtag doesn't use in any task.
+        {% endfor %}
+    </ul>
+
+{% endblock content %}
