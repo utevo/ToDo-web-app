@@ -13,8 +13,8 @@ def index(request):
 
 def tasks(request):
     unordered_task_list = Task.objects.all()
-    ordered_task_list = sorted(unordered_task_list, reverse=True)
-    context = {'task_list': ordered_task_list}
+    tasks = sorted(unordered_task_list, reverse=True)
+    context = {'tasks': tasks}
     return render(request, 'todoapp/tasks.html', context)
 
 
