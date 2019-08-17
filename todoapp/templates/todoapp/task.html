@@ -3,11 +3,12 @@
 {% block content %}
 
     <h1> Task: </h1>
-    <p> Name: {{ task.title }} </p>
-    <p> Description: {{ task.description }} </p>
-    <p> Completed: {{ task.completed }} </p>
 
-    <p> Hashtags: </p>
+    <p>Name: {{ task.title }}</p>
+    <p>Description: {{ task.description }}</p>
+    <p>Completed: {{ task.completed }}</p>
+
+    <p>Hashtags:</p>
     <ul>
         {% for hashtag in task.hashtags.all %}
         <li>
