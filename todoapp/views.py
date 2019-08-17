@@ -19,11 +19,16 @@ def tasks(request):
 
 
 def task(request, task_id):
-    try:
-        task = Task.objects.get(id=task_id)
-    except Task.DoesNotExist:
-        raise Http404("Task does not exists :(")
-    return render(request, 'todoapp/task.html', {'task': task})
+    task = get_object_or_404(Task, id=task_id)
+
+    if request.method == 'GET':
+        return render(request, 'todoapp/task.html', {'task': task})
+    elif request.method == 'POST':
+        form = TaskForm(instance=task, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('todoapp:task',
+                                        args=[task_id]))
 
 
 def hashtag(request, hashtag_id):
@@ -61,13 +66,6 @@ def new_hashtag(request):
 def edit_task(request, task_id):
     task = get_object_or_404(Task, id=task_id)
 
-    if request.method != 'POST':
-        form = TaskForm(instance=task)
-        content = {'task': task, 'form': form}
-        return render(request, 'todoapp/edit_task.html', content)
-    else:
-        form = TaskForm(instance=task, data=request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('todoapp:task_detail',
-                                        args=[task_id]))
+    form = TaskForm(instance=task)
+    content = {'task': task, 'form': form}
+    return render(request, 'todoapp/edit_task.html', content)
