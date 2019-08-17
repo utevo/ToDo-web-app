@@ -12,10 +12,17 @@ def index(request):
 
 
 def tasks(request):
-    unordered_task_list = Task.objects.all()
-    tasks = sorted(unordered_task_list, reverse=True)
-    context = {'tasks': tasks}
-    return render(request, 'todoapp/tasks.html', context)
+    if request.method == 'GET':
+        unordered_tasks = Task.objects.all()
+        tasks = sorted(unordered_tasks, reverse=True)
+        context = {'tasks': tasks}
+        return render(request, 'todoapp/tasks.html', context)
+
+    if request.method == 'POST':
+        form = TaskForm(data=request.POST)
+        if form.is_valid():
+            new_task = form.save(commit=True)
+            return HttpResponseRedirect(reverse('todoapp:tasks'))
 
 
 def hashtags(request):
@@ -46,15 +53,9 @@ def hashtag(request, hashtag_id):
 
 
 def new_task(request):
-    if request.method != 'POST':
-        form = TaskForm()
-        content = {'form': form}
-        return render(request, 'todoapp/new_task.html', content)
-    else:
-        form = TaskForm(data=request.POST)
-        if form.is_valid():
-            new_task = form.save(commit=True)
-            return HttpResponseRedirect(reverse('todoapp:tasks'))
+    form = TaskForm()
+    content = {'form': form}
+    return render(request, 'todoapp/new_task.html', content)
 
 
 def new_hashtag(request):
