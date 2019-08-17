@@ -26,9 +26,16 @@ def tasks(request):
 
 
 def hashtags(request):
-    hashtags = Hashtag.objects.all()
-    context = {'hashtags': hashtags}
-    return render(request, 'todoapp/hashtags.html', context)
+    if request.method == 'GET':
+        hashtags = Hashtag.objects.all()
+        context = {'hashtags': hashtags}
+        return render(request, 'todoapp/hashtags.html', context)
+
+    if request.method == 'POST':
+        form = HashtagForm(data=request.POST)
+        if form.is_valid():
+            new_task = form.save(commit=True)
+            return HttpResponseRedirect(reverse('todoapp:tasks'))
 
 
 def task(request, task_id):
@@ -59,15 +66,9 @@ def new_task(request):
 
 
 def new_hashtag(request):
-    if request.method != 'POST':
-        form = HashtagForm()
-        content = {'form': form}
-        return render(request, 'todoapp/new_hashtag.html', content)
-    else:
-        form = HashtagForm(data=request.POST)
-        if form.is_valid():
-            new_task = form.save(commit=True)
-            return HttpResponseRedirect(reverse('todoapp:tasks'))
+    form = HashtagForm()
+    content = {'form': form}
+    return render(request, 'todoapp/new_hashtag.html', content)
 
 
 def edit_task(request, task_id):

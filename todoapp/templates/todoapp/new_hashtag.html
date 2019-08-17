@@ -2,7 +2,7 @@
 
 {% block content %}
     <p> Add new hashtag: </p>
-    <form action="{% url 'todoapp:new_hashtag' %}" method='post'>
+    <form action="{% url 'todoapp:hashtags' %}" method='post'>
         {% csrf_token %}
         {{ form.as_p }}
         <button name="submit"> Add new hashtag </button>
