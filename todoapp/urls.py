@@ -12,7 +12,7 @@ urlpatterns = [
     path('tasks/', views.tasks, name='tasks'),
 
     # ex: /todo/task/3/
-    path('task/<int:task_id>/', views.detail_task, name='detail_task'),
+    path('task/<int:task_id>/', views.task, name='task'),
 
     # ex: /todo/hashtag/1/
     path('hashtag/<int:hashtag_id>/', views.detail_hashtag,
