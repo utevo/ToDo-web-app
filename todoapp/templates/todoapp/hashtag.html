@@ -15,8 +15,10 @@
             </a>
         </li>
         {% empty %}
-            This hashtag isn't used in any task.
+            This Hashtag isn't used in any task.
         {% endfor %}
     </ul>
+
+    <p><a href="{% url 'todoapp:edit_hashtag' hashtag.id %}">Edit Hashtag</a></p>
 
 {% endblock content %}

@@ -29,4 +29,8 @@ urlpatterns = [
     # ex /todo/tasks/3/edit/
     path('task/<int:task_id>/edit/', views.edit_task, name='edit_task'),
 
+    # ex /todo/hashtag/1/edit/
+    path('hashtag/<int:hashtag_id>/edit/', views.edit_hashtag, 
+         name='edit_hashtag'),
+
 ]
