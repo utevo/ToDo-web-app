@@ -43,7 +43,8 @@ def task(request, task_id):
 
     if request.method == 'GET':
         return render(request, 'todoapp/task.html', {'task': task})
-    elif request.method == 'POST':
+
+    if request.method == 'POST':
         form = TaskForm(instance=task, data=request.POST)
         if form.is_valid():
             form.save()
@@ -53,10 +54,19 @@ def task(request, task_id):
 
 def hashtag(request, hashtag_id):
     hashtag = get_object_or_404(Hashtag, id=hashtag_id)
-    tasks_in_which_used = hashtag.task_set.all()
-    context = {'hashtag': hashtag, 'tasks_in_which_used': tasks_in_which_used}
-    return render(request, 'todoapp/hashtag.html',
-                  context)
+
+    if request.method == 'GET':
+        tasks_in_which_used = hashtag.task_set.all()
+        context = {'hashtag': hashtag, 'tasks_in_which_used': tasks_in_which_used}
+        return render(request, 'todoapp/hashtag.html',
+                    context)
+
+    if request.method == 'POST':
+        form = HashtagForm(instance=hashtag, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('todoapp:hashtag',
+                                        args=[hashtag_id]))
 
 
 def new_task(request):
