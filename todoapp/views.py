@@ -26,11 +26,11 @@ def task(request, task_id):
     return render(request, 'todoapp/task.html', {'task': task})
 
 
-def detail_hashtag(request, hashtag_id):
+def hashtag(request, hashtag_id):
     hashtag = get_object_or_404(Hashtag, id=hashtag_id)
     tasks_in_which_used = hashtag.task_set.all()
     context = {'hashtag': hashtag, 'tasks_in_which_used': tasks_in_which_used}
-    return render(request, 'todoapp/detail_hashtag.html',
+    return render(request, 'todoapp/hashtag.html',
                   context)
 
 

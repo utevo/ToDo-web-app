@@ -11,7 +11,7 @@
     <ul>
         {% for hashtag in task.hashtags.all %}
         <li>
-            <a href="{% url 'todoapp:detail_hashtag' hashtag.id %}">
+            <a href="{% url 'todoapp:hashtag' hashtag.id %}">
                 {{ hashtag }}
             </a>
         </li>
