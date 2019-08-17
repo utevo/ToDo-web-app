@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1> HASHTAGS: </h1>
+    <ul>
+        {% for hashtag in hashtags %}
+            <li>
+                <a href="{% url 'todoapp:hashtag' hashtag.id %}">
+                    {{ hashtag }}
+            </a>
+            </li>
+        {% empty %}
+            Doesn't exist any hashtag.
+        {% endfor %}     
+    </ul>
+
+{% endblock content %}

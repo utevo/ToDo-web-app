@@ -18,6 +18,12 @@ def tasks(request):
     return render(request, 'todoapp/tasks.html', context)
 
 
+def hashtags(request):
+    hashtags = Hashtag.objects.all()
+    context = {'hashtags': hashtags}
+    return render(request, 'todoapp/hashtags.html', context)
+
+
 def task(request, task_id):
     task = get_object_or_404(Task, id=task_id)
 

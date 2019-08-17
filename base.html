@@ -1,14 +1,19 @@
 <p>
     <h3> ToDo Web App </h3>
-    <a href="{% url 'todoapp:index' %}"> Index</a>
-    |
-    <a href="{% url 'todoapp:new_task' %}"> Add_Task</a>
-    |
-    <a href="{% url 'todoapp:new_hashtag' %}"> Add_Hashtag</a>
+    <p>
+        <a href="{% url 'todoapp:tasks' %}">Tasks</a>
+        |
+        <a href="{% url 'todoapp:new_task' %}">Add Task</a>
+    </p>
+    <p>
+        <a href="{% url 'todoapp:hashtags' %}">Hashtags</a>
+        |
+        <a href="{% url 'todoapp:new_hashtag' %}">Add Hashtag</a>
+    </p>
 </p>
 
 {% block content %}{% endblock content %}
 
 <p>
-    <a href="https:/www.github.com/Kowies"> Created by Kowieski Michał</a>
+    <a href="https:/www.github.com/Kowies">Created by Kowieski Michał</a>
 </p>
