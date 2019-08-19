@@ -34,6 +34,6 @@ urlpatterns = [
          name='edit_hashtag'),
 
     # ex /todo/task/3/delete/
-    path('taask/<int:task_id>/delete/', views.delete_task, name='delete_task'),
+    path('task/<int:task_id>/delete/', views.delete_task, name='delete_task'),
 
 ]
