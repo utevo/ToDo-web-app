@@ -4,7 +4,8 @@ from django.urls import reverse
 from django.shortcuts import get_object_or_404
 
 from .models import Task, Hashtag
-from .forms import TaskForm, HashtagForm, DeleteTaskForm
+from .forms import TaskForm, HashtagForm 
+from .forms import DeleteTaskForm, DeleteHashtagForm
 
 
 def index(request):
@@ -111,3 +112,19 @@ def delete_task(request, task_id):
         if form.is_valid():
             task.delete()
             return HttpResponseRedirect(reverse('todoapp:tasks'))
+
+
+def delete_hashtag(request, hashtag_id):
+    hashtag = get_object_or_404(Hashtag, id=hashtag_id)
+
+    if request.method == 'GET':
+        form = DeleteHashtagForm(instance=hashtag)
+        context = {'hashtag': hashtag, 'form': form}
+        return render(request, 'todoapp/delete_hashtag.html', context)
+
+    if request.method == 'POST':
+        form = DeleteHashtagForm(data=request.POST, instance=hashtag)
+        
+        if form.is_valid():
+            hashtag.delete()
+            return HttpResponseRedirect(reverse('todoapp:hashtags'))

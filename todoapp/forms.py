@@ -19,3 +19,9 @@ class DeleteTaskForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = []
+
+
+class DeleteHashtagForm(forms.ModelForm):
+    class Meta:
+        model = Hashtag
+        fields = []
