@@ -88,9 +88,14 @@ def edit_task(request, task_id):
     content = {'task': task, 'form': form}
     return render(request, 'todoapp/edit_task.html', content)
 
+
 def edit_hashtag(request, hashtag_id):
     hashtag = get_object_or_404(Hashtag, id=hashtag_id)
 
     form = HashtagForm(instance=hashtag)
     content = {'hashtag': hashtag, 'form': form}
     return render(request, 'todoapp/edit_hashtag.html', content)
+
+
+def delete_task(request, task_id):
+    pass
