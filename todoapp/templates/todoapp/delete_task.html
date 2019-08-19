@@ -2,6 +2,10 @@
 
 {% block content %}
 
-
+    <form action="{% url 'todoapp:delete_task' task.id%}" method='post'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="submit"> Delete Task </button>
+    </form>
 
 {% endblock content %}
