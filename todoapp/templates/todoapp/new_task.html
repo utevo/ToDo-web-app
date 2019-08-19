@@ -7,7 +7,7 @@
     <form action="{% url 'todoapp:tasks' %}" method='post'>
         {% csrf_token %}
         {{ form.as_p }}
-        <button name="submit"> Add new topic </button>
+        <button name="submit">Add Topic</button>
     </form>
 
 {% endblock content %}
