@@ -21,8 +21,9 @@
         {% endfor %}
     </ul>
 
-    <p><a href="{% url 'todoapp:edit_task' task.id %}">Edit Task</a></p>
-
-    <p><a href="{% url 'todoapp:delete_task' task.id %}">Delete Task</a></p>
-
+    <div>
+        <p><a href="{% url 'todoapp:edit_task' task.id %}">Edit Task</a></p>
+        <p><a href="{% url 'todoapp:delete_task' task.id %}">Delete Task</a></p>
+    </div>
+    
 {% endblock content %}
