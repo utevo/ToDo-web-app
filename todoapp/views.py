@@ -102,8 +102,8 @@ def delete_task(request, task_id):
 
     if request.method == 'GET':
         form = DeleteTaskForm(instance=task)
-        context = {'form': form}
-        return render(request, 'todoapp/delete_task.html')
+        context = {'task': task, 'form': form}
+        return render(request, 'todoapp/delete_task.html', context)
 
     if request.method == 'POST':
         form = DeleteTaskForm(data=request.POST, instance=task)
