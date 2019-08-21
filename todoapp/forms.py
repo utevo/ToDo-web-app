@@ -8,7 +8,20 @@ class TaskForm(forms.ModelForm):
         model = Task
         fields = ['title', 'description', 'hashtags']
 
+
 class HashtagForm(forms.ModelForm):
     class Meta:
         model = Hashtag
-        fields = ['title',]
+        fields = ['title', ]
+
+
+class DeleteTaskForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = []
+
+
+class DeleteHashtagForm(forms.ModelForm):
+    class Meta:
+        model = Hashtag
+        fields = []

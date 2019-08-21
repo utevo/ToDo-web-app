@@ -2,11 +2,12 @@
 
 {% block content %}
 
-    <h1> TASKS: </h1>
+    <h1>Tasks:</h1>
+
     <ul>
-        {% for task in task_list %}
+        {% for task in tasks %}
             <li>
-                <a href="{% url 'todoapp:task_detail' task.id %}">
+                <a href="{% url 'todoapp:task' task.id %}">
                     {{ task }}
             </a>
             </li>

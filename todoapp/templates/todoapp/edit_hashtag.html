@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1>Edit Hashtag:</h1>
+
+    <p><a href="{% url 'todoapp:hashtag' hashtag.id %}">{{ task }}</a></p>
+
+    <form action="{% url 'todoapp:hashtag' hashtag.id %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="submit">Save changes</button>
+    </form>
+
+{% endblock content %}

@@ -18,16 +18,16 @@ class Task(models.Model):
     completed = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now)
 
-    # The lower value of invalidity means the task is more important  
+    # The lower value of invalidity means the task is more important
     invalidity = models.PositiveIntegerField(blank=True, null=True)
 
     def __str__(self):
         return self.title
-    
+
     def __lt__(self, other):
-        if self.invalidity == None:
+        if self.invalidity is None:
             return True
-        if other.invalidity == None:
+        if other.invalidity is None:
             return False
         return self.invalidity > other.invalidity
 

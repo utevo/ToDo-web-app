@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1>Are you sure?</h1>
+    
+    <p>Are you sure you want to delete the task "{{ task }}"?</p> 
+
+    <form action="{% url 'todoapp:delete_task' task.id%}" method='post'>
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <div>
+            <button name="submit">Yes, I'm sure</button>
+            <a href="{% url 'todoapp:task' task.id %}" class="button cancel-link">No, take me back</a>
+        </div>
+
+    </form>
+
+{% endblock content %}
