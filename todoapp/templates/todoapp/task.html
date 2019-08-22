@@ -21,6 +21,14 @@
         {% endfor %}
     </ul>
 
+    <form method="post" action="{% url 'todoapp:task' task.id %}">
+        {% csrf_token %}
+        {{ form_to_check_off_task.as_p }}
+
+        <button name="submit">Tick!</button>
+        <input type="hidden" name="tick_task_form"/>
+    </form>
+
     <div>
         <p><a href="{% url 'todoapp:edit_task' task.id %}">Edit Task</a></p>
         <p><a href="{% url 'todoapp:delete_task' task.id %}">Delete Task</a></p>
