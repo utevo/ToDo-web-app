@@ -10,6 +10,14 @@ urlpatterns = [
     path('', views.index, name='index'),
 
     # ex /users/login/
-    path('login/', LoginView.as_view(template_name='users/login.html'), name='login'),
+    path('login/', LoginView.as_view(template_name='users/login.html'), 
+         name='login'),
+
+    # ex /users/logout/
+    path('logout/', views.logout_view, name='logout'),
+
+    # ex /users/register/
+    path('register/', views.register, name='register'),
+    
 
 ]
