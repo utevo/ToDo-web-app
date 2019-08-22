@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404
 
 from .models import Task, Hashtag
 from .forms import TaskForm, HashtagForm
-from .forms import DeleteTaskForm, DeleteHashtagForm
+from .forms import DeleteTaskForm, DeleteHashtagForm, TickTaskForm
 
 
 def index(request):
@@ -14,9 +14,13 @@ def index(request):
 
 def tasks(request):
     if request.method == 'GET':
-        unordered_tasks = Task.objects.all()
-        tasks = sorted(unordered_tasks, reverse=True)
-        context = {'tasks': tasks}
+        tasks_not_completed = Task.objects.filter(completed=False)
+        tasks_completed = Task.objects.filter(completed=True)
+
+        context = {
+            'tasks_not_completed': tasks_not_completed,
+            'tasks_completed': tasks_completed,
+            }
         return render(request, 'todoapp/tasks.html', context)
 
     if request.method == 'POST':
@@ -43,9 +47,18 @@ def task(request, task_id):
     task = get_object_or_404(Task, id=task_id)
 
     if request.method == 'GET':
-        return render(request, 'todoapp/task.html', {'task': task})
+        tick_task_form = TickTaskForm(instance=task)
+        context = {'task': task, 'tick_task_form': tick_task_form}
+        return render(request, 'todoapp/task.html', context)
 
     if request.method == 'POST':
+
+        print(type(request.POST))
+        if 'tick_task_form' in request.POST:
+            task.completed = not task.completed
+            task.save()
+            return HttpResponseRedirect(reverse('todoapp:task',
+                                        args=[task_id]))
         form = TaskForm(instance=task, data=request.POST)
         if form.is_valid():
             form.save()
