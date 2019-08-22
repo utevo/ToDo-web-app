@@ -1,15 +1,39 @@
 <p>
     <h3> ToDo Web App </h3>
-    <p>
-        <a href="{% url 'todoapp:tasks' %}">Tasks</a>
-        |
-        <a href="{% url 'todoapp:new_task' %}">Add Task</a>
-    </p>
-    <p>
-        <a href="{% url 'todoapp:hashtags' %}">Hashtags</a>
-        |
-        <a href="{% url 'todoapp:new_hashtag' %}">Add Hashtag</a>
-    </p>
+
+    <hr>
+
+    <div>
+    {% if user.is_authenticated %}
+        <p>
+            <span>Hello, {{ user.username }}!</span> 
+            <span> | </span>
+            <a href="{% url 'users:logout' %}">Logout</a>
+        </p>
+    {% else %}
+        <a href="{% url 'users:register' %}">Register</a>
+        <span> | </span>
+        <a href="{% url 'users:login' %}">Login</a>
+    {% endif %}
+    </div>
+
+    <hr> 
+
+    <div>
+        <p>
+            <a href="{% url 'todoapp:tasks' %}">Tasks</a>
+            <span> | </span>
+            <a href="{% url 'todoapp:new_task' %}">Add Task</a>
+        </p>
+    </div>
+
+    <div>
+        <p>
+            <a href="{% url 'todoapp:hashtags' %}">Hashtags</a>
+            <span> | </span>
+            <a href="{% url 'todoapp:new_hashtag' %}">Add Hashtag</a>
+        </p>
+    </div>
 </p>
 
 <hr> 
