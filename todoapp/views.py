@@ -7,15 +7,21 @@ from .models import Task, Hashtag
 from .forms import TaskForm, HashtagForm
 from .forms import DeleteTaskForm, DeleteHashtagForm, TickTaskForm
 
+from django.contrib.auth.decorators import login_required
+
 
 def index(request):
     return HttpResponseRedirect(reverse('todoapp:tasks'))
 
-
+@login_required
 def tasks(request):
     if request.method == 'GET':
-        tasks_not_completed = Task.objects.filter(completed=False)
-        tasks_completed = Task.objects.filter(completed=True)
+        all_tasks_not_completed = Task.objects.filter(completed=False)
+        tasks_not_completed = all_tasks_not_completed.filter(
+            owner=request.user)
+
+        all_tasks_completed = Task.objects.filter(completed=True)
+        tasks_completed = all_tasks_completed.filter(owner=request.user)
 
         context = {
             'tasks_not_completed': tasks_not_completed,
@@ -29,7 +35,7 @@ def tasks(request):
             new_task = form.save(commit=True)
             return HttpResponseRedirect(reverse('todoapp:tasks'))
 
-
+@login_required
 def hashtags(request):
     if request.method == 'GET':
         hashtags = Hashtag.objects.all()
@@ -42,9 +48,12 @@ def hashtags(request):
             new_hashtag = form.save(commit=True)
             return HttpResponseRedirect(reverse('todoapp:hashtags'))
 
-
+@login_required
 def task(request, task_id):
     task = get_object_or_404(Task, id=task_id)
+
+    if task.owner != request.user:
+        raise Http404
 
     if request.method == 'GET':
         tick_task_form = TickTaskForm(instance=task)
@@ -67,7 +76,7 @@ def task(request, task_id):
     context = {'task': task, 'tick_task_form': tick_task_form}
     return render(request, 'todoapp/task.html', context)
 
-
+@login_required
 def hashtag(request, hashtag_id):
     hashtag = get_object_or_404(Hashtag, id=hashtag_id)
     tasks_in_which_used = hashtag.task_set.all()
@@ -87,27 +96,30 @@ def hashtag(request, hashtag_id):
             return HttpResponseRedirect(reverse('todoapp:hashtag',
                                         args=[hashtag_id]))
 
-
+@login_required
 def new_task(request):
     form = TaskForm()
     content = {'form': form}
     return render(request, 'todoapp/new_task.html', content)
 
-
+@login_required
 def new_hashtag(request):
     form = HashtagForm()
     content = {'form': form}
     return render(request, 'todoapp/new_hashtag.html', content)
 
-
+@login_required
 def edit_task(request, task_id):
     task = get_object_or_404(Task, id=task_id)
+
+    if task.owner != request.user:
+        raise Http404
 
     form = TaskForm(instance=task)
     content = {'task': task, 'form': form}
     return render(request, 'todoapp/edit_task.html', content)
 
-
+@login_required
 def edit_hashtag(request, hashtag_id):
     hashtag = get_object_or_404(Hashtag, id=hashtag_id)
 
@@ -115,7 +127,7 @@ def edit_hashtag(request, hashtag_id):
     content = {'hashtag': hashtag, 'form': form}
     return render(request, 'todoapp/edit_hashtag.html', content)
 
-
+@login_required
 def delete_task(request, task_id):
     task = get_object_or_404(Task, id=task_id)
 
@@ -131,7 +143,7 @@ def delete_task(request, task_id):
             task.delete()
             return HttpResponseRedirect(reverse('todoapp:tasks'))
 
-
+@login_required
 def delete_hashtag(request, hashtag_id):
     hashtag = get_object_or_404(Hashtag, id=hashtag_id)
 
