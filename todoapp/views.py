@@ -39,8 +39,8 @@ def hashtags(request):
     if request.method == 'POST':
         form = HashtagForm(data=request.POST)
         if form.is_valid():
-            new_task = form.save(commit=True)
-            return HttpResponseRedirect(reverse('todoapp:tasks'))
+            new_hashtag = form.save(commit=True)
+            return HttpResponseRedirect(reverse('todoapp:hashtags'))
 
 
 def task(request, task_id):
@@ -48,35 +48,37 @@ def task(request, task_id):
 
     if request.method == 'GET':
         tick_task_form = TickTaskForm(instance=task)
-        context = {'task': task, 'tick_task_form': tick_task_form}
-        return render(request, 'todoapp/task.html', context)
 
     if request.method == 'POST':
 
-        print(type(request.POST))
-        if 'tick_task_form' in request.POST:
+        # user want tick on/off task
+        if 'tick_task_form' in request.POST: 
             task.completed = not task.completed
-            task.save()
+            task.save() # Should I check form?
             return HttpResponseRedirect(reverse('todoapp:task',
                                         args=[task_id]))
-        form = TaskForm(instance=task, data=request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('todoapp:task',
-                                        args=[task_id]))
+        else: # user want to create new task
+            form = TaskForm(instance=task, data=request.POST)
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect(reverse('todoapp:task',
+                                            args=[task_id]))
+
+    context = {'task': task, 'tick_task_form': tick_task_form}
+    return render(request, 'todoapp/task.html', context)
 
 
 def hashtag(request, hashtag_id):
     hashtag = get_object_or_404(Hashtag, id=hashtag_id)
+    tasks_in_which_used = hashtag.task_set.all()
 
     if request.method == 'GET':
-        tasks_in_which_used = hashtag.task_set.all()
         context = {
                     'hashtag': hashtag,
                     'tasks_in_which_used': tasks_in_which_used,
-                  }
+                    }
         return render(request, 'todoapp/hashtag.html',
-                      context)
+                        context)
 
     if request.method == 'POST':
         form = HashtagForm(instance=hashtag, data=request.POST)
