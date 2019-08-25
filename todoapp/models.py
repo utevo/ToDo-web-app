@@ -1,11 +1,12 @@
 from django.db import models
 from django.utils import timezone
 
+from django.contrib.auth.models import User
 
 # Create your models here.
 
 class Hashtag(models.Model):
-    title = models.CharField(max_length=30, unique=True)
+    title = models.CharField(max_length=50)
     created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
@@ -17,6 +18,8 @@ class Task(models.Model):
     description = models.TextField(null=False, blank=True)
     completed = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now)
+
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     # The lower value of invalidity means the task is more important
     invalidity = models.PositiveIntegerField(blank=True, null=True)
