@@ -9,6 +9,8 @@ class Hashtag(models.Model):
     title = models.CharField(max_length=50)
     created_at = models.DateTimeField(default=timezone.now)
 
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+
     def __str__(self):
         return self.title
 
@@ -24,6 +26,8 @@ class Task(models.Model):
     # The lower value of invalidity means the task is more important
     invalidity = models.PositiveIntegerField(blank=True, null=True)
 
+    hashtags = models.ManyToManyField(Hashtag, blank=True)
+
     def __str__(self):
         return self.title
 
@@ -34,8 +38,13 @@ class Task(models.Model):
             return False
         return self.invalidity > other.invalidity
 
+    # TODO: need to test
+    # should be enough to prevent access to non-owned hashtags 
+    def clean(self):
+        for hashtag in self.hashtags.all():
+            if hashtag.owner != self.owner:
+                raise ValidationError("User don't own one of the hashtags.")
+
     class Meta:
         ordering = ["completed", "-created_at"]
         verbose_name_plural = "tasks"
-
-    hashtags = models.ManyToManyField(Hashtag, blank=True)
