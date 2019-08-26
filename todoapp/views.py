@@ -32,7 +32,10 @@ def tasks(request):
     if request.method == 'POST':
         form = TaskForm(data=request.POST)
         if form.is_valid():
-            new_task = form.save(commit=True)
+            new_task = form.save(commit=False)
+            new_task.owner = request.user
+            new_task.save()
+            form.save_m2m()
             return HttpResponseRedirect(reverse('todoapp:tasks'))
 
 @login_required
