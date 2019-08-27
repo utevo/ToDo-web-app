@@ -4,8 +4,22 @@
 
     <h1>Tasks:</h1>
 
+    <h2>Not Completed:</h2>
     <ul>
-        {% for task in tasks %}
+        {% for task in tasks_not_completed %}
+            <li>
+                <a href="{% url 'todoapp:task' task.id %}">
+                    {{ task }}
+            </a>
+            </li>
+        {% empty %}
+            Doesn't exist any task.
+        {% endfor %}     
+    </ul>
+
+    <h2>Completed:</h2>
+    <ul>
+        {% for task in tasks_completed %}
             <li>
                 <a href="{% url 'todoapp:task' task.id %}">
                     {{ task }}

@@ -1,12 +1,15 @@
 from django.db import models
 from django.utils import timezone
 
+from django.contrib.auth.models import User
 
 # Create your models here.
 
 class Hashtag(models.Model):
-    title = models.CharField(max_length=30, unique=True)
+    title = models.CharField(max_length=50)
     created_at = models.DateTimeField(default=timezone.now)
+
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
@@ -18,8 +21,12 @@ class Task(models.Model):
     completed = models.BooleanField(default=False)
     created_at = models.DateTimeField(default=timezone.now)
 
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+
     # The lower value of invalidity means the task is more important
     invalidity = models.PositiveIntegerField(blank=True, null=True)
+
+    hashtags = models.ManyToManyField(Hashtag, blank=True)
 
     def __str__(self):
         return self.title
@@ -34,5 +41,3 @@ class Task(models.Model):
     class Meta:
         ordering = ["completed", "-created_at"]
         verbose_name_plural = "tasks"
-
-    hashtags = models.ManyToManyField(Hashtag, blank=True)
