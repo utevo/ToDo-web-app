@@ -38,13 +38,6 @@ class Task(models.Model):
             return False
         return self.invalidity > other.invalidity
 
-    # TODO: need to test
-    # should be enough to prevent access to non-owned hashtags 
-    def clean(self):
-        for hashtag in self.hashtags.all():
-            if hashtag.owner != self.owner:
-                raise ValidationError("User don't own one of the hashtags.")
-
     class Meta:
         ordering = ["completed", "-created_at"]
         verbose_name_plural = "tasks"
