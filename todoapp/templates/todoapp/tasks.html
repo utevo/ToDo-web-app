@@ -1,29 +1,28 @@
 {% extends "base.html" %}
+{% load bootstrap3 %}
+
+{% block header %}
+    <h2>Tasks:</h2>
+{% endblock header %}
 
 {% block content %}
 
-    <h1>Tasks:</h1>
-
-    <h2>Not Completed:</h2>
+    <h3>Not Completed:</h2>
     <ul>
         {% for task in tasks_not_completed %}
             <li>
-                <a href="{% url 'todoapp:task' task.id %}">
-                    {{ task }}
-            </a>
+                <a href="{% url 'todoapp:task' task.id %}">{{ task }}</a>
             </li>
         {% empty %}
             Doesn't exist any task.
         {% endfor %}     
     </ul>
 
-    <h2>Completed:</h2>
+    <h3>Completed:</h3>
     <ul>
         {% for task in tasks_completed %}
             <li>
-                <a href="{% url 'todoapp:task' task.id %}">
-                    {{ task }}
-            </a>
+                <a href="{% url 'todoapp:task' task.id %}">{{ task }}</a>
             </li>
         {% empty %}
             Doesn't exist any task.
