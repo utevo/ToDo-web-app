@@ -1,20 +1,31 @@
  {% extends "base.html" %}
+ {% load bootstrap3 %}
+
+ {% block header %}
+    <h1>Task:</h1>
+ {% endblock header %}
 
 {% block content %}
 
-    <h1> Task: </h1>
+    <h3>Name:</h3>
+    {{ task.title }}
 
-    <p>Name: {{ task.title }}</p>
-    <p>Description: {{ task.description }}</p>
-    <p>Completed: {{ task.completed }}</p>
+    <h3>Description:</h3>
+    <div class="panel-body">
+        {{ task.description }}
+    </div>
 
-    <p>Hashtags:</p>
+    <h3>Completed: </h3>
+    {{ task.completed }}
+
+
+    <h3>Hashtags:</h3>
     <ul>
         {% for hashtag in task.hashtags.all %}
         <li>
-            <a href="{% url 'todoapp:hashtag' hashtag.id %}">
-                {{ hashtag }}
-            </a>
+            <h4>
+                <a href="{% url 'todoapp:hashtag' hashtag.id %}">{{ hashtag }}</a>
+            </h4>
         </li>
         {% empty %}
             Doesn't contain any hashtag!
@@ -23,9 +34,10 @@
 
     <form method="post" action="{% url 'todoapp:task' task.id %}">
         {% csrf_token %}
-        {{ form_to_check_off_task.as_p }}
 
-        <button name="submit">Tick!</button>
+        {% buttons %}
+            <button name="submit" class="btn btn-primary">Tick!</button>
+        {% endbuttons %}
         <input type="hidden" name="tick_task_form"/>
     </form>
 
