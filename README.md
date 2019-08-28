@@ -1,2 +1,2 @@
 # ToDo-web-app
-📔 This is a minimalistic ToDo app written using the Django framework.
+📔 This is a ToDo web app written using the Django framework.
