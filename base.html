@@ -1,45 +1,66 @@
-<p>
-    <h3> ToDo Web App </h3>
+{% load bootstrap3 %}
 
-    <hr>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="urf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <div>
-    {% if user.is_authenticated %}
-        <p>
-            <span>Hello, {{ user.username }}!</span> 
-            <span> | </span>
-            <a href="{% url 'users:logout' %}">Logout</a>
-        </p>
-    {% else %}
-        <a href="{% url 'users:register' %}">Register</a>
-        <span> | </span>
-        <a href="{% url 'users:login' %}">Login</a>
-    {% endif %}
-    </div>
+        <title>ToDo Web App</title>
 
-    <hr> 
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
 
-    <div>
-        <p>
-            <a href="{% url 'todoapp:tasks' %}">Tasks</a>
-            <span> | </span>
-            <a href="{% url 'todoapp:new_task' %}">Add Task</a>
-        </p>
-    </div>
+    </head>
 
-    <div>
-        <p>
-            <a href="{% url 'todoapp:hashtags' %}">Hashtags</a>
-            <span> | </span>
-            <a href="{% url 'todoapp:new_hashtag' %}">Add Hashtag</a>
-        </p>
-    </div>
-</p>
 
-<hr> 
-{% block content %}{% endblock content %}
-<hr> 
+    <body>
+        <nav class="navbar navbar-default navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed"
+                        data-toggle="collapse" data-target="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
+                    </button>
+                    <a class="navbar-brand" href="{% url 'todoapp:index' %}">
+                        ToDo Web App
+                    </a>
+                </div>
 
-<p>
-    <a href="https:/www.github.com/Kowies">Created by Kowieski Michał</a>
-</p>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="{% url 'todoapp:tasks' %}">Tasks</a>
+                        </li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if user.is_authenticated %}
+                            <li><a>Wellcome, {{ user.username }}!</a></li>
+                            <li><a href="{% url 'users:logout' %}">Logout</a></li>
+                        {% else %}
+                            <li><a href="{% url 'users:register' %}">Register</a></li>
+                            <li><a href="{% url 'users:login' %}">Login</a></li>
+                        {% endif %}
+
+                    </ul>
+                </div><!--/.nav-collapse -->
+
+            </div>
+        </nav>
+
+        <div class="container">
+
+            <div class="page-header">
+                {% block header %} {% endblock header %}
+            </div>
+            <div>
+                {% block content %} {% endblock content %}
+            </div>
+
+        </div> <!-- /container -->
+
+    </body>
+</html>
+

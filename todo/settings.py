@@ -15,6 +15,11 @@ import os
 # my settings
 LOGIN_URL = '/users/login/'
 
+# bootstrap3 settings
+BOOTSTRAP3 = {
+    'include_jquery': True,
+    }
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -40,8 +45,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # my apps
     'todoapp',
     'users',
+
+    # third party app
+    'bootstrap3',
 ]
 
 MIDDLEWARE = [
