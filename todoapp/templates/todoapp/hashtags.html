@@ -1,19 +1,28 @@
 {% extends "base.html" %}
 
-{% block content %}
-
+{% block header %}
     <h1>Hashtags:</h1>
+{% endblock header %}
 
+{% block content %}
     <ul>
         {% for hashtag in hashtags %}
             <li>
-                <a href="{% url 'todoapp:hashtag' hashtag.id %}">
-                    {{ hashtag }}
-            </a>
+                <h4>
+                    <a href="{% url 'todoapp:hashtag' hashtag.id %}">{{ hashtag }}</a>
+                </h4>
             </li>
         {% empty %}
             Doesn't exist any hashtag.
         {% endfor %}     
     </ul>
+
+    <div>
+        <p>
+            <a class="btn btn-primary" href="{% url 'todoapp:new_hashtag' %}">
+                Create new hashtag
+            </a>
+        </p>
+    </div>
 
 {% endblock content %}
