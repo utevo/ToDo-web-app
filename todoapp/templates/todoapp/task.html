@@ -8,16 +8,20 @@
 {% block content %}
 
     <h3>Name:</h3>
-    {{ task.title }}
-
+    <div class="panel-body">
+        <h4>{{ task.title }}</h4>
+    </div>
+    
     <h3>Description:</h3>
     <div class="panel-body">
         {{ task.description }}
     </div>
 
     <h3>Completed: </h3>
-    {{ task.completed }}
-
+    <div class="panel-body">
+        <h4>{{ task.completed }}</h4>
+    </div>
+    
 
     <h3>Hashtags:</h3>
     <ul>
@@ -42,8 +46,17 @@
     </form>
 
     <div>
-        <p><a href="{% url 'todoapp:edit_task' task.id %}">Edit Task</a></p>
-        <p><a href="{% url 'todoapp:delete_task' task.id %}">Delete Task</a></p>
+        
+        <p>
+            <a class="btn btn-secondary" href="{% url 'todoapp:edit_task' task.id %}">
+                Edit Task
+            </a>
+        </p>
+        <p>
+            <a class="btn btn-danger" href="{% url 'todoapp:delete_task' task.id %}">
+                Delete Task
+            </a>
+        </p>
     </div>
     
 {% endblock content %}
