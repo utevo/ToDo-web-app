@@ -15,8 +15,8 @@ import os
 # my settings
 LOGIN_URL = '/users/login/'
 
-# bootstrap3 settings
-BOOTSTRAP3 = {
+# bootstrap4 settings
+BOOTSTRAP4 = {
     'include_jquery': True,
     }
 
@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'users',
 
     # third party app
-    'bootstrap3',
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [
