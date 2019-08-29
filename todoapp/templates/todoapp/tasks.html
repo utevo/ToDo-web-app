@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load bootstrap4 %}
 
 {% block header %}
     <h1>Tasks:</h1>
@@ -23,11 +22,11 @@
     <h3>Completed:</h3>
     <ul>
         {% for task in tasks_completed %}
-            <h4>
-                <li>
+            <li>
+                <h4>
                     <a href="{% url 'todoapp:task' task.id %}">{{ task }}</a>
-                </li>
-            </h4>
+                </h4>
+            </li>
         {% empty %}
             Doesn't exist any task.
         {% endfor %}     
