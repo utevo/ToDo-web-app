@@ -33,6 +33,12 @@
         {% endfor %}     
     </ul>
 
-    <h3><a href="{% url 'todoapp:new_task' %}" class="black">Create new task</a></h3>
+    <div>
+        <p>
+            <a class="btn btn-primary" href="{% url 'todoapp:new_task' %}">
+                Create new task
+            </a>
+        </p>
+    </div>
 
 {% endblock content %}
