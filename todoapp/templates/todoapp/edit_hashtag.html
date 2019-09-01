@@ -1,15 +1,25 @@
 {% extends "base.html" %}
+{% load bootstrap4 %}
+
+{% block header %}
+    <h1>Edit Task:</h1>
+{% endblock header %}
 
 {% block content %}
 
-    <h1>Edit Hashtag:</h1>
-
-    <p><a href="{% url 'todoapp:hashtag' hashtag.id %}">{{ task }}</a></p>
+    <div>
+        <p>
+            <a href="{% url 'todoapp:hashtag' hashtag.id %}" class="btn btn-light">Go back</a>
+        </p>
+    </div>
 
     <form action="{% url 'todoapp:hashtag' hashtag.id %}" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button name="submit">Save changes</button>
+        {% bootstrap_form form %}
+
+        {% buttons %}
+            <button name="submit" class="btn btn-primary">Save changes</button>
+        {% endbuttons %}
     </form>
 
 {% endblock content %}

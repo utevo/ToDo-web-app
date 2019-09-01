@@ -1,33 +1,43 @@
 {% extends "base.html" %}
 
+{% block header %}
+    <h1>Tasks:</h1>
+{% endblock header %}
+
 {% block content %}
 
-    <h1>Tasks:</h1>
-
-    <h2>Not Completed:</h2>
+    <h3>Not Completed:</h3>
     <ul>
         {% for task in tasks_not_completed %}
-            <li>
-                <a href="{% url 'todoapp:task' task.id %}">
-                    {{ task }}
-            </a>
-            </li>
+            <h4>
+                <li>
+                    <a href="{% url 'todoapp:task' task.id %}">{{ task }}</a>
+                </li>
+            </h4>
         {% empty %}
-            Doesn't exist any task.
+            <h5 class="p-3 mb-2 bg-warning text-dark">There is no task.</h5>
         {% endfor %}     
     </ul>
 
-    <h2>Completed:</h2>
+    <h3>Completed:</h3>
     <ul>
         {% for task in tasks_completed %}
             <li>
-                <a href="{% url 'todoapp:task' task.id %}">
-                    {{ task }}
-            </a>
+                <h4>
+                    <a href="{% url 'todoapp:task' task.id %}">{{ task }}</a>
+                </h4>
             </li>
         {% empty %}
-            Doesn't exist any task.
+            <h5 class="p-3 mb-2 bg-warning text-dark">There is no task.</h5>
         {% endfor %}     
     </ul>
+
+    <div>
+        <p>
+            <a class="btn btn-primary" href="{% url 'todoapp:new_task' %}">
+                Create new task
+            </a>
+        </p>
+    </div>
 
 {% endblock content %}

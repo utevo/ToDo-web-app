@@ -11,7 +11,7 @@ def index(request):
 
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect(reverse('todoapp:index'))
+    return HttpResponseRedirect(reverse('todoapp:tasks'))
 
 
 def register(request):
