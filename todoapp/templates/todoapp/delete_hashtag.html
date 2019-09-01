@@ -1,18 +1,21 @@
 {% extends "base.html" %}
 
+{% block header %}
+    <h1>Delete hashtag</h1>
+{% endblock header %}
+
 {% block content %}
 
-    <h1>Are you sure?</h1>
-    
-    <p>Are you sure you want to delete the hashtag "{{ hashtag }}"?</p> 
+    <div>
+        <h5>Are you sure you want to delete the hashtag "{{ hashtag.title }}"?</h5>
+    </div> 
 
     <form action="{% url 'todoapp:delete_hashtag' hashtag.id%}" method='post'>
         {% csrf_token %}
-        {{ form.as_p }}
 
-        <div>
-            <button name="submit">Yes, I'm sure</button>
-            <a href="{% url 'todoapp:hashtag' hashtag.id %}" class="button cancel-link">No, take me back</a>
+        <div class="submit-row">
+            <button name="submit" class="btn btn-danger">Yes, I'm sure</button>
+            <a href="{% url 'todoapp:hashtag' hashtag.id %}" class="btn btn-secondary">No, take me back</a>
         </div>
 
     </form>
