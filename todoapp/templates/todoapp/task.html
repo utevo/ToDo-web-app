@@ -1,9 +1,9 @@
- {% extends "base.html" %}
- {% load bootstrap4 %}
+{% extends "base.html" %}
+{% load bootstrap4 %}
 
- {% block header %}
-    <h1>Task:</h1>
- {% endblock header %}
+{% block header %}
+<h1>Task:</h1>
+{% endblock header %}
 
 {% block content %}
 
@@ -46,12 +46,12 @@
 
     <div>
         <p>
-            <a class="btn btn-secondary" href="{% url 'todoapp:edit_task' task.id %}">
+            <a href="{% url 'todoapp:edit_task' task.id %}" class="btn btn-secondary">
                 Edit Task
             </a>
         </p>
         <p>
-            <a class="btn btn-danger" href="{% url 'todoapp:delete_task' task.id %}">
+            <a href="{% url 'todoapp:delete_task' task.id %}" class="btn btn-danger">
                 Delete Task
             </a>
         </p>
