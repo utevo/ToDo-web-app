@@ -9,11 +9,11 @@
     <h3>Not Completed:</h3>
     <ul>
         {% for task in tasks_not_completed %}
-            <h4>
-                <li>
+            <li>
+                <h4>
                     <a href="{% url 'todoapp:task' task.id %}">{{ task }}</a>
-                </li>
-            </h4>
+                </h4>
+            </li>
         {% empty %}
             <h5 class="p-3 mb-2 bg-warning text-dark">There is no task.</h5>
         {% endfor %}     
