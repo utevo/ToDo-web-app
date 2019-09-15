@@ -1,5 +1,5 @@
 # ToDo-web-app
-📔 This is a ToDo web app written using the Django framework.
+📔 ToDo web app written using the Django framework.
 http://35.210.152.148/todo
 
 # Features:
